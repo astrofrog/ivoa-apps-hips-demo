@@ -1,0 +1,36 @@
+name: Run Demo Scripts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-demos:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        lfs: true
+
+    - name: Set up Python 3.14
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.14'
+
+    - name: Install requirements
+      run: pip install -r requirements.txt
+
+    - name: Run reproject_demo_2d/1.run_fits.py
+      run: python reproject_demo_2d/1.run_fits.py
+
+    - name: Run reproject_demo_2d/2.run_rgb.py
+      run: python reproject_demo_2d/2.run_rgb.py
+
+    - name: Run reproject_demo_2d/3.from_hips.py
+      run: python reproject_demo_2d/3.from_hips.py
+
+    - name: Run reproject_demo_3d/1.run.py
+      run: python reproject_demo_3d/1.run.py
